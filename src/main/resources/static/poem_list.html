@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>诗文列表</title>
+    <link rel="icon" href="../favicon.ico" type="image/gif">
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/poem.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-fixed-top navbar-inverse">
+    <div class="container">
+        <div class="navbar-header">
+            <div class="navbar-brand" href="#" id="poemCategory"></div>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div>
+        <div id="poemList"></div>
+    </div>
+    <hr>
+    <footer>
+        <p class="">&copy; 2020 Michael Hu</p>
+    </footer>
+</div>
+</body>
+<script src="./js/jquery.min.js"></script>
+<script src="./js/bootstrap.min.js"></script>
+<script src="./js/poem.js"></script>
+<script>
+    $(function () {
+            let category = getUrlParam('category');
+            $("#poemCategory").html(category);
+            $.get("/poemList/" + category, function (result) {
+                let poemHtml = '';
+                $(result).each(function (index, element) {
+                    let poemTitle = element.title + "(" + element.author + ")";
+                    poemHtml += `<div class="col-sm-3"><a href="poem_detail.html?id=${element.id}">${poemTitle}</a></div>`;
+                })
+                $("#poemList").html(poemHtml);
+            }, "json")
+        }
+    )
+</script>
+</html>

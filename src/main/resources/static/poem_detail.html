@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>诗词详情</title>
+    <!--    <link rel="icon" href="../favicon.ico" type="image/gif">-->
+    <link href="./css/bootstrap.min.css" rel="stylesheet">
+    <link href="./css/poem.css" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-fixed-top navbar-inverse">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="index.html">首页</a>
+        </div>
+    </div>
+</nav>
+<div class="container">
+    <div>
+        <h1 id="poemTitle"></h1>
+        <small id="authorAndDy"></small>
+        <div id="poemDetail"></div>
+    </div>
+    <div>
+        <a id="imageName"></a>
+    </div>
+    <hr>
+    <footer>
+        <p class="">&copy; 2020 Michael Hu</p>
+    </footer>
+</div>
+</body>
+<script src="./js/jquery.min.js"></script>
+<script src="./js/bootstrap.min.js"></script>
+<script type="text/javascript" src="./js/poem.js"></script>
+<script>
+    $(function () {
+        let id = getUrlParam('id');
+        $.get("/detail/" + id, function (result) {
+            $("#poemTitle").html(result.title);
+            $("#authorAndDy").html(result.dynasty + "：" + result.author);
+            var poemSts = result.content.split("。");
+            var poemContentHtml = '';
+            $(poemSts).each(function (index, element) {
+                if (element) {
+                    poemContentHtml += `<p>${element}。</p>`;
+                }
+            })
+            $("#poemDetail").html(poemContentHtml);
+        }, "json")
+    })
+    $(function () {
+        $.get("/image/favicon", function (result) {
+            console.log(result);
+        }, "json")
+    })
+</script>
+</html>
