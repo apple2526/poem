@@ -22,8 +22,4 @@ public interface PoemApi {
     @ApiOperation("根据诗词id查询诗词详情")
     @ApiImplicitParam(name = "id", value = "诗词id", required = true,dataType = "int",paramType = "path")
     Poem queryDetailById(int id);
-
-    @ApiOperation("根据诗词id查询诗词详情")
-    @ApiImplicitParam(name = "imageName", value = "图片名称", required = true,dataType = "String",paramType = "path")
-    String getImage(String  imageName) throws IOException;
 }

@@ -13,5 +13,4 @@ public interface PoemService {
 
     Poem queryDetailById(Integer id);
 
-    String getImage(String imageName);
 }

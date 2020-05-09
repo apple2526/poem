@@ -34,10 +34,4 @@ public class PoemController implements PoemApi {
     public Poem queryDetailById(@PathVariable("id") int id) {
         return poemService.queryDetailById(id);
     }
-
-    @Override
-    @GetMapping("/image/{imageName}")
-    public String getImage(@PathVariable("imageName") String imageName) throws IOException {
-       return poemService.getImage(imageName);
-    }
 }

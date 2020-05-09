@@ -7,9 +7,13 @@
     <meta name="description" content="">
     <meta name="author" content="">
     <title>诗词详情</title>
-    <!--    <link rel="icon" href="../favicon.ico" type="image/gif">-->
     <link href="./css/bootstrap.min.css" rel="stylesheet">
     <link href="./css/poem.css" rel="stylesheet">
+    <script src="./js/vue.js"></script>
+    <script src="./js/axios.min.js"></script>
+    <script src="./js/jquery.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/poem.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-fixed-top navbar-inverse">
@@ -20,6 +24,16 @@
     </div>
 </nav>
 <div class="container">
+<!--    $("#poemTitle").html(result.title);-->
+<!--    //         $("#authorAndDy").html(result.dynasty + "：" + result.author);-->
+<!--    //         var poemSts = result.content.split("。");-->
+<!--    //         var poemContentHtml = '';-->
+<!--    //         $(poemSts).each(function (index, element) {-->
+<!--    //             if (element) {-->
+<!--    //                 poemContentHtml += `<p>${element}。</p>`;-->
+<!--    //             }-->
+<!--    //         })-->
+<!--    //         $("#poemDetail").html(poemContentHtml);-->
     <div>
         <h1 id="poemTitle"></h1>
         <small id="authorAndDy"></small>
@@ -33,30 +47,20 @@
         <p class="">&copy; 2020 Michael Hu</p>
     </footer>
 </div>
-</body>
-<script src="./js/jquery.min.js"></script>
-<script src="./js/bootstrap.min.js"></script>
-<script type="text/javascript" src="./js/poem.js"></script>
 <script>
-    $(function () {
-        let id = getUrlParam('id');
-        $.get("/detail/" + id, function (result) {
-            $("#poemTitle").html(result.title);
-            $("#authorAndDy").html(result.dynasty + "：" + result.author);
-            var poemSts = result.content.split("。");
-            var poemContentHtml = '';
-            $(poemSts).each(function (index, element) {
-                if (element) {
-                    poemContentHtml += `<p>${element}。</p>`;
-                }
-            })
-            $("#poemDetail").html(poemContentHtml);
-        }, "json")
-    })
-    $(function () {
-        $.get("/image/favicon", function (result) {
-            console.log(result);
-        }, "json")
+    const app = new Vue({
+        el: "#app",
+        data: {
+            list: ""
+        },
+        created: function () {
+            let that = this;
+            axios.get('/detail/'+id)
+                .then(res => {
+                    that.list = res.data;
+                })
+        }
     })
 </script>
+</body>
 </html>

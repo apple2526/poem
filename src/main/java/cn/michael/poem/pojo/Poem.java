@@ -3,13 +3,17 @@ package cn.michael.poem.pojo;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.io.Serializable;
 
 @Data
+@Entity
 public class Poem implements Serializable {
 
     private static final long serialVersionUID = -3462246040994887002L;
     @ApiModelProperty("诗词id")
+    @Id
     private Integer id;
     @ApiModelProperty("诗词标题")
     private String title;
